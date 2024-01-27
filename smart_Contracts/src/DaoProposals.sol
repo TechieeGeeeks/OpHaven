@@ -9,7 +9,7 @@ contract DAOProposal {
 
     address public dao; // Address of the DAO contract
     address public daoToken; // Address of the voting token contract
-    uint256 public proposalIdCounter;
+    uint256 public proposalIdCounter = 1;
     uint256 public votesRequired;
     uint256 public votingEndTime;
     uint256 public totalLockedTokens;
@@ -45,11 +45,6 @@ contract DAOProposal {
         _;
     }
 
-    modifier onlyBeforeVotingEnd() {
-        require(block.timestamp < votingEndTime, "Voting has ended");
-        _;
-    }
-
     modifier onlyAfterVotingEnd() {
         require(block.timestamp >= votingEndTime, "Voting has not ended yet");
         _;
@@ -74,23 +69,18 @@ contract DAOProposal {
         address proposer
     );
 
-    constructor(
+constructor(
         address dao_,
-        address daoToken_,
-        uint256 votesRequired_,
-        uint256 votingDuration
+        address daoToken_
     ) {
         dao = dao_;
         daoToken = daoToken_;
-        votesRequired = votesRequired_;
-        votingEndTime = block.timestamp + votingDuration;
-        status = ProposalStatus.Pending;
     }
 
     function castVote(uint256 proposalId, uint256 userVotes)
         external
         onlyVotingTokenHolder
-        onlyBeforeVotingEnd
+        
     {
         // Ensure that the voter has not voted before
         require(!hasVoted[msg.sender], "Already voted");
@@ -134,7 +124,6 @@ contract DAOProposal {
 
     function makeProposal(string memory description, uint256 duration)
         external
-        onlyVotingTokenHolder
     {
         // Ensure that the caller has not created a proposal before
         require(
@@ -172,7 +161,6 @@ contract DAOProposal {
 
     function executeProposal(uint256 proposalId)
         external
-        onlyDAO
         onlyAfterVotingEnd
     {
         Proposal storage proposal = proposals[proposalId];
@@ -187,6 +175,8 @@ contract DAOProposal {
         uint256 totalVotesAgainst = proposal.votesAgainst;
         uint256 totalVotes = totalVotesFor + totalVotesAgainst;
 
+        successFullProposal[proposal.proposer] = 1000;
+        
         if (totalVotes >= votesRequired) {
             // Proposal approved
             proposal.status = ProposalStatus.Approved;
@@ -203,8 +193,6 @@ contract DAOProposal {
         // Release locked tokens to voters
         releaseLockedTokens(proposalId);
     }
-
-// ...
 
     function releaseLockedTokens(uint256 proposalId) internal {
         Proposal storage proposal = proposals[proposalId];

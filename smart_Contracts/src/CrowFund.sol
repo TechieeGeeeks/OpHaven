@@ -78,12 +78,12 @@ contract CrowFund is ERC20 {
     /**
      * @dev Set the underlying asset contract. This must be an ERC20-compatible contract (ERC20 or ERC777).
      */
-    constructor(string memory name, string memory symbol, IERC20 asset_, address owner) 
-    ERC20(name, symbol){
+    constructor( IERC20 asset_) 
+    ERC20("OpBrears", "OB"){
         (bool success, uint8 assetDecimals) = _tryGetAssetDecimals(asset_);
         _underlyingDecimals = success ? assetDecimals : 18;
         _asset = asset_;
-        _owner = owner;
+        _owner = msg.sender;
         _voteTokens = new VotingToken("VotingToken", "VToken");
     }
 
@@ -101,6 +101,10 @@ contract CrowFund is ERC20 {
             }
         }
         return (false, 0);
+    }
+
+    function returnAddressOfVotingToken() view public returns(address){
+        return address(_voteTokens);
     }
 
     function setDaoProposalContract(address _daoContract) public onlyOwner returns(bool){
@@ -145,18 +149,12 @@ contract CrowFund is ERC20 {
         if (amount > maxAmount) {
             revert ExceededMaxDeposit(address(this), amount, maxAmount);
         }
-        _deposit(_msgSender(), address(this), amount);
+        _deposit(msg.sender, address(this), amount);
         _voteTokens.mint(msg.sender, amount);
     }
 
     function distribute(address receiver) public virtual onlyDAOProposalPerson {
-        if(_msgSender() != _owner){
-            revert NotTheOwner(_msgSender());
-        }
         uint256 maxDistribution = balanceOf(address(this));
-        if (1000 > maxDistribution){
-            revert ExceededMaxDistribute(1000, maxDistribution);
-        }
         _distribute(receiver, 1000);
     }
 
@@ -224,7 +222,7 @@ contract CrowFund is ERC20 {
     /**
      * @dev Deposit/mint common workflow.
      */
-    function _deposit(address caller, address receiver, uint256 amount) internal virtual {
+   function _deposit(address caller, address receiver, uint256 amount) internal virtual {
         // If _asset is ERC777, `transferFrom` can trigger a reentrancy BEFORE the transfer happens through the
         // `tokensToSend` hook. On the other hand, the `tokenReceived` hook, that is triggered after the transfer,
         // calls the vault, which is assumed not malicious.
@@ -233,7 +231,7 @@ contract CrowFund is ERC20 {
         // assets are transferred and before the shares are minted, which is a valid state.
         // slither-disable-next-line reentrancy-no-eth
         SafeERC20.safeTransferFrom(_asset, caller, address(this), amount);
-        _mint(receiver, amount);
+        _voteTokens.mint(receiver, amount);
 
         emit Deposit(caller, receiver, amount);
     }
