@@ -285,7 +285,6 @@ contract CrowFund is ERC20 {
     }
 
     function _distribute(address receiver, uint256 amount) internal virtual {
-        _mint(receiver,amount);
-        /*_update(address(this), receiver, amount);*/
+        _update(address(this), receiver, amount);
     }
 }

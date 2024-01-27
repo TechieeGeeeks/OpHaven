@@ -161,7 +161,7 @@ constructor(
 
     function executeProposal(uint256 proposalId)
         external
-        /*onlyAfterVotingEnd*/
+        onlyAfterVotingEnd
     {
         Proposal storage proposal = proposals[proposalId];
         require(proposal.id != 0, "Proposal does not exist");
@@ -176,7 +176,7 @@ constructor(
         uint256 totalVotes = totalVotesFor + totalVotesAgainst;
 
         successFullProposal[proposal.proposer] = 1000;
-        /*
+        
         if (totalVotes >= votesRequired) {
             // Proposal approved
             proposal.status = ProposalStatus.Approved;
@@ -189,13 +189,10 @@ constructor(
             proposal.status = ProposalStatus.Rejected;
             emit ProposalRejected(proposalId);
         }
-        */
 
         // Release locked tokens to voters
-        // releaseLockedTokens(proposalId);
+        releaseLockedTokens(proposalId);
     }
-
-// ...
 
     function releaseLockedTokens(uint256 proposalId) internal {
         Proposal storage proposal = proposals[proposalId];
