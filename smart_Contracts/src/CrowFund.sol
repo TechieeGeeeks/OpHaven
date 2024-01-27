@@ -7,14 +7,17 @@ pragma solidity ^0.8.20;
 import {IERC20, IERC20Metadata, ERC20} from "./ERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
+import {VotingToken} from "./VotingToken.sol";
+import {DAOProposal} from "./DaoProposals.sol";
 
-contract DaoVault is ERC20 {
+contract CrowFund is ERC20 {
     using Math for uint256;
 
     IERC20 private immutable _asset;
     uint8 private immutable _underlyingDecimals;
     address public immutable _owner;
-
+    VotingToken immutable _voteTokens;
+    address private daoProposalsContract;
     address internal constant SENTINEL_REDEEMERS = address(0x1);
 
     mapping (address => uint256) public maxDailyRedeemAmount;
@@ -35,6 +38,17 @@ contract DaoVault is ERC20 {
         address indexed owner,
         uint256 amount
     );
+
+    modifier onlyDAOProposalPerson() {
+        // Ensure that only the DAO contract can execute certain functions
+        require(DAOProposal(daoProposalsContract).successFullProposal(msg.sender)!=0 , "Caller is not the DAO contract");
+        _;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == _owner, "Not the owner");
+        _;
+    }
 
     /**
      * @dev Attempted to deposit more assets than the max amount for `receiver`.
@@ -70,6 +84,7 @@ contract DaoVault is ERC20 {
         _underlyingDecimals = success ? assetDecimals : 18;
         _asset = asset_;
         _owner = owner;
+        _voteTokens = new VotingToken("VotingToken", "VToken");
     }
 
     /**
@@ -87,6 +102,10 @@ contract DaoVault is ERC20 {
         }
         return (false, 0);
     }
+
+    function setDaoProposalContract(address _daoContract) public onlyOwner returns(bool){
+        daoProposalsContract = _daoContract;
+    } 
 
     function asset() public view virtual returns (address) {
         return address(_asset);
@@ -126,22 +145,22 @@ contract DaoVault is ERC20 {
         if (amount > maxAmount) {
             revert ExceededMaxDeposit(address(this), amount, maxAmount);
         }
-
         _deposit(_msgSender(), address(this), amount);
+        _voteTokens.mint(msg.sender, amount);
     }
 
-    function distribute(address receiver, uint256 amount) public virtual {
+    function distribute(address receiver) public virtual onlyDAOProposalPerson {
         if(_msgSender() != _owner){
             revert NotTheOwner(_msgSender());
         }
         uint256 maxDistribution = balanceOf(address(this));
-        if (amount > maxDistribution){
-            revert ExceededMaxDistribute(amount, maxDistribution);
+        if (1000 > maxDistribution){
+            revert ExceededMaxDistribute(1000, maxDistribution);
         }
-        _distribute(receiver, amount);
+        _distribute(receiver, 1000);
     }
 
-    function batchDistribute(Distribution[] calldata distributions) public virtual {
+    function batchDistribute(Distribution[] calldata distributions) public virtual onlyDAOProposalPerson {
         if(_msgSender() != _owner){
             revert NotTheOwner(_msgSender());
         }
