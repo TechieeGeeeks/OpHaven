@@ -4,7 +4,7 @@ import Main from './components/Maincomponent/Main'
 const Homepage = () => {
   return (
     <div>
-    <Navbar />
+   
     <Main />
     </div>
   )
