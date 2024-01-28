@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Optimized Vault Project is a modified vault inspired by ERC-4326, offering enhanced features tailored for specific use cases. This smart contract-based project enables owners to deposit ERC-20 tokens and mint ownership tokens (bearing tokens) for designated recipients. Notably, bearing tokens have restricted transferability and can only be sent to whitelisted addresses.
+Op.Haven is a modified vault inspired by ERC-4326, offering enhanced features tailored for specific use cases. This smart contract-based project enables owners to deposit ERC-20 tokens and mint ownership tokens (bearing tokens) for designated recipients. Notably, bearing tokens have restricted transferability and can only be sent to whitelisted addresses.
 
 The project is designed to facilitate controlled access to original ERC-20 tokens corresponding to the earned bearing tokens. Owners can manage the process by setting daily withdrawal limits for whitelisted addresses. Additionally, the protocol incorporates small transaction fees to sustain its operations.
 
