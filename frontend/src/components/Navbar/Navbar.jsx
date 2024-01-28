@@ -9,8 +9,8 @@ const Navbar = ({ signer, contractBundle, address }) => {
       <div className="flex items-center justify-around h-16">
         <h1 className='font-contax text-[30px]'>OP.haven</h1>
         <div className="flex space-x-12 text-gray-900">
-          <a className='font-contax' href="#">Donate</a>
-          <a className='font-contax' href="#">Make Proposal</a>
+          <a className='font-contax' href="/donate">Donate</a>
+          <a className='font-contax' href="/proposal">Make Proposal</a>
           
         </div>
         {

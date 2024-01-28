@@ -22,13 +22,13 @@ const CreateProposal = ({signer, contractBundle }) => {
 
 
   return (
-    <div className='flex flex-col justify-evenly w-[1000px] h-[750px] bg-white rounded-[20px] items-center  border-black'>
+    <div className='flex flex-col justify-evenly w-[1000px] h-[750px] items-center bg-white backdrop-filter rounded-xl mt-36 backdrop-blur-lg bg-opacity-80 border-b-2 border-black'>
       <h1 className='font-contax text-4xl'>Proposal Details</h1>
       <div className='flex flex-row justify-start gap-8'>
         <p className='font-contax text-2xl text-center items-center'>Proposal Name:</p>
         <input
           type='text'
-          className='border border-black rounded-[10px] w-[300px] h-[60px]'
+          className='border border-black rounded-[10px] w-[240px] h-[40px]'
           value={proposalName}
           onChange={(e) => setProposalName(e.target.value)}
           placeholder='Enter Proposal Name'
@@ -38,7 +38,7 @@ const CreateProposal = ({signer, contractBundle }) => {
         <p className='font-contax text-2xl text-center items-center'>Proposal Description:</p>
         <input
           type='text'
-          className='border border-black rounded-[10px] w-[300px] h-[80px]'
+          className='border border-black rounded-[10px] w-[240px] h-[40px]'
           value={proposalDescription}
           onChange={(e) => setProposalDescription(e.target.value)}
           placeholder='Enter Proposal Description'
@@ -48,7 +48,7 @@ const CreateProposal = ({signer, contractBundle }) => {
         <p className='font-contax text-2xl text-center items-center'>Proposal Duration:</p>
         <input
           type='text'
-          className='border border-black rounded-[10px] w-[300px] h-[80px]'
+          className='border border-black rounded-[10px] w-[240px] h-[40px]'
           value={duration}
           onChange={(e) => setDuration(e.target.value)}
           placeholder='Enter Proposal Duration'

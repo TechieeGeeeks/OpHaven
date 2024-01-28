@@ -26,11 +26,12 @@ const ProposalVoting = ({ contractBundle }) => {
   };
 
   return (
-    <div className='flex flex-col justify-evenly w-[1000px] h-[750px] bg-white rounded-[20px] items-center border-black'>
+    <div className='flex flex-col justify-evenly w-[1000px] h-[750px] items-center mb-4 bg-white backdrop-filter rounded-xl mt-4 backdrop-blur-lg bg-opacity-80 border-b-2 border-black'>
+      <div className='flex flex-col mb-4 justify-evenly w-[1000px] h-[350px] items-center mb-4 bg-white backdrop-filter rounded-xl mt-4 backdrop-blur-lg bg-opacity-80 border-b-2 border-black'>
       <h1 className='font-contax text-4xl'>Vote on Existing Proposal</h1>
       
       {/* Proposal 1 */}
-      <div className='flex flex-col justify-evenly w-[800px] h-[150px] bg-gray-100 rounded-[10px] items-center border-black my-4'>
+      <div className='flex flex-col justify-evenly w-[800px] h-[150px] bg-gray-200 rounded-[10px] items-center border-black my-4'>
         <p className='font-contax text-2xl text-center items-center'>Proposal Name: Proposal 1</p>
         <p className='font-contax text-2xl text-center items-center'>Proposers Address: Proposal 1</p>
         <p className='font-contax text-2xl text-center items-center'>Proposal Description: Description 1</p>
@@ -38,9 +39,10 @@ const ProposalVoting = ({ contractBundle }) => {
 
         
       </div>
+      </div>
 
       {/* Proposal Voting Section */}
-      <div className='flex flex-col justify-evenly w-[800px] h-[150px] bg-gray-100 rounded-[10px] items-center border-black my-4'>
+      <div className='flex flex-col justify-evenly w-[800px] h-[400px] bg-gray-200 rounded-[10px] items-center border-black my-4'>
         <p className='font-contax text-2xl text-center items-center'>Vote for Proposal</p>
         <input
           type="text"
@@ -67,7 +69,7 @@ const ProposalVoting = ({ contractBundle }) => {
       </div>
 
       {/* Successful Proposals Section */}
-      <div className='flex flex-col justify-evenly w-[800px] h-[150px] bg-gray-100 rounded-[10px] items-center border-black my-4'>
+      <div className='flex flex-col justify-evenly w-[800px] h-[350px] bg-gray-100 rounded-[10px] items-center border-black my-4'>
         <p className='font-contax text-2xl text-center items-center'>Successful Proposals</p>
         {/* Display successful proposals here */}
       </div>

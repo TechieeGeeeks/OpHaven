@@ -36,7 +36,7 @@ const TokenApproval = ({ signer, contractBundle }) => {
   return (
     <>
       {/* USDC Approval UI */}
-      <div className="flex flex-col justify-evenly w-[1000px] h-[750px] bg-white rounded-[20px] items-center border-black">
+      <div className="flex flex-col justify-evenly w-[1000px] h-[750px] items-center bg-white backdrop-filter rounded-xl mt-4 backdrop-blur-lg bg-opacity-80 border-b-2 border-black">
         <h1 className="font-contax text-4xl">Approve tUsdc</h1>
         <div className="flex flex-row justify-between gap-8">
           <p className="font-contax text-2xl">Spender Address:</p>
@@ -58,13 +58,15 @@ const TokenApproval = ({ signer, contractBundle }) => {
             placeholder="Enter Amount"
           />
         </div>
-        <button
-          className="inline-block text-lg group"
-          onClick={approvalHandlerForUsdc}
-        >
-          {/* Button styling */}
-          <span className="relative">Approve USDC</span>
-        </button>
+        <button   onClick={approvalHandlerForUsdc}  className="inline-block text-lg group">
+      <span className="relative z-10 block px-5 py-3 overflow-hidden font-contax font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
+        <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
+        <span className="absolute left-0 w-[400px] h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-gray-900 group-hover:-rotate-180 ease"></span>
+        <span className="relative">Approve USDC</span>
+      </span>
+
+    </button>
+        
       </div>
 
       {/* VotingToken Approval UI */}
@@ -90,13 +92,15 @@ const TokenApproval = ({ signer, contractBundle }) => {
             placeholder="Enter Amount"
           />
         </div>
-        <button
-          className="inline-block text-lg group"
-          onClick={approvalHandlerForVotingToken}
-        >
-          {/* Button styling */}
-          <span className="relative">Approve VotingToken</span>
-        </button>
+        <button onClick={approvalHandlerForVotingToken}  className="inline-block text-lg group">
+      <span className="relative z-10 block px-5 py-3 overflow-hidden font-contax font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
+        <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
+        <span className="absolute left-0 w-[400px] h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-gray-900 group-hover:-rotate-180 ease"></span>
+        <span className="relative">Approve Voting Token</span>
+      </span>
+
+    </button>
+        
       </div>
     </>
   );

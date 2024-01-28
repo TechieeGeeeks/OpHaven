@@ -80,7 +80,7 @@ function App() {
     <div className="px-8 md:px-16">
       <Navbar address={address} />
       {provider ? (
-        <div>
+        <div className='flex items-center flex-col gap-8 mt-4 justify-center h-screen'>
         <Routes>
           <Route path='/' element={<Homepage />} />
         <Route path="/donate" element={<Donate signer={signer} contractBundle={contractBundle}   />} />
@@ -91,23 +91,7 @@ function App() {
       {/* ) : (    */}
           {showConnectButton ? (
             <div>
-              <button
-                className="md:ml-10 font-semibold bg-primaryColor p-4 px-8 text-backgroundColor rounded-lg mt-8"
-                onClick={connectWallet}
-              >
-                Connect Wallet
-              </button>
-              <p>
-                If you don't have MetaMask installed, you can{" "}
-                <a
-                  href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  install it from the Chrome Web Store
-                </a>
-                .
-              </p>
+             
             </div>
           ) : null}
         </div>

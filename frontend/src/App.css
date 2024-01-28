@@ -46,3 +46,18 @@ code {
     transform: translateY(0px);
   }
 }
+input {
+  background-color: #eee;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  width: 13em;
+  border-radius: 1rem;
+  color: rgb(0, 0, 0);
+  box-shadow: 0 0.4rem #dfd9d9;
+  cursor: pointer;
+}
+
+input:focus {
+  outline-color: rgb(0, 0, 0);
+}

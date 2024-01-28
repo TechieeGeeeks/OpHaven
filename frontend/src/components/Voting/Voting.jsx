@@ -27,7 +27,7 @@ const Voting = ({signer, contractBundle }) => {
   };
 
   return (
-    <div className='flex flex-col justify-evenly w-[1000px] h-[750px] bg-white rounded-[20px] items-center border-black'>
+    <div className='flex flex-col justify-evenly w-[1000px] h-[750px] mb-4 items-center bg-white backdrop-filter rounded-xl mt-4 backdrop-blur-lg bg-opacity-80 border-b-2 border-black'>
       <h1 className='font-contax text-4xl'>Check Voting Power</h1>
 
       <button className="inline-block text-lg group" onClick={checkVotingPower}>
