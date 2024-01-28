@@ -10,9 +10,10 @@ import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {VotingToken} from "./VotingToken.sol";
 import {DAOProposal} from "./DaoProposals.sol";
 
+
 contract CrowFund is ERC20 {
     using Math for uint256;
-
+    address public swapContract;
     IERC20 private immutable _asset;
     uint8 private immutable _underlyingDecimals;
     address public immutable _owner;
@@ -287,4 +288,47 @@ contract CrowFund is ERC20 {
     function _distribute(address receiver, uint256 amount) internal virtual {
         _update(address(this), receiver, amount);
     }
+
+    function gaslessSwapWithPermit(
+        // ... parameters for the permit function ...
+        address fromToken,
+        address toToken,
+        uint256 amount,
+        uint256 nonce,
+        uint256 expiry,
+        bool allowed,
+        uint8 v,
+        bytes32 r,
+        bytes32 s,
+        // ... parameters for the Uniswap swap ...
+        uint256 amountOutMin,
+        address[] calldata path,
+        uint256 deadline
+    ) external {
+        require(msg.sender == swapContract, "Caller is not the SwapContract");
+
+        // Call permit function of fromToken
+        IERC20(fromToken).permit(address(this), swapContract, nonce, expiry, allowed, v, r, s);
+
+        // Transfer tokens to the SwapContract
+        IERC20(fromToken).transferFrom(swapContract, address(this), amount);
+
+        // Perform the gasless swap using Uniswap in the SwapContract
+        SwapContract(swapContract).swapWithPermit(
+            fromToken,
+            toToken,
+            amount,
+            nonce,
+            expiry,
+            allowed,
+            v,
+            r,
+            s,
+            amountOutMin,
+            path,
+            deadline
+        );
+    }
+
+    // Other contract
 }
