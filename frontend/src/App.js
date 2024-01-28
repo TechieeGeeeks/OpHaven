@@ -16,7 +16,8 @@ import Navbar from './components/Navbar/Navbar';
 import Homepage from './Homepage';
 import Proposal from './Proposal.jsx';
 import Donate from './Donate';
-
+import TokenApproval from './components/TokenApproval/TokenApproval.jsx';
+import distributeAndBatchDistribution from './components/distribution/distributeAndBatchDistribution.jsx';
 
 function App() {
   const [popUp, setPopUp] = useState(false);
@@ -84,7 +85,8 @@ function App() {
           <Route path='/' element={<Homepage />} />
         <Route path="/donate" element={<Donate signer={signer} contractBundle={contractBundle}   />} />
           <Route path="/proposal" element={<Proposal signer={signer} contractBundle={contractBundle} />} />
-         
+          <Route path="/approval" element={<TokenApproval signer={signer} contractBundle={contractBundle} />} />
+          <Route path="/distribute" element={<distributeAndBatchDistribution signer={signer} contractBundle={contractBundle} />} />
         </Routes>
       {/* ) : (    */}
           {showConnectButton ? (
