@@ -24,6 +24,7 @@ function App() {
   const [signer, setSigner] = useState(null);
   const [showConnectButton, setShowConnectButton] = useState(false);
   const [contractBundle, setContractBundle] = useState({}); 
+  const [address,setAddress] = useState(null)
 
   const connectWallet = async () => {
     if (window.ethereum) {
@@ -33,6 +34,8 @@ function App() {
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
         setSigner(signer);
+        const address= await signer.getAddress();
+        setAddress(address);
         await connectContract(signer);
       } catch (error) {
         console.error(error);
@@ -74,7 +77,7 @@ function App() {
   }, [])
   return (
     <div className="px-8 md:px-16">
-      <Navbar />
+      <Navbar address={address} />
       {provider ? (
         <div>
         <Routes>
