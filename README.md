@@ -25,4 +25,4 @@ The project is designed to facilitate controlled access to original ERC-20 token
 The project has been successfully deployed on the Optimism blockchain.
 
 
-Copyright<a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://github.com/DevSwayam"></a>
+Copyright<a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://github.com/DevSwayam">DevSwayam</a>
