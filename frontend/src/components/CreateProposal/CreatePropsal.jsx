@@ -22,7 +22,7 @@ const CreateProposal = ({signer, contractBundle }) => {
 
 
   return (
-    <div className='flex flex-col justify-evenly w-[1000px] h-[750px] items-center bg-white backdrop-filter rounded-xl mt-36 backdrop-blur-lg bg-opacity-80 border-b-2 border-black'>
+    <div className='flex flex-col justify-evenly w-[1000px] h-[750px] gap-10 items-center bg-white backdrop-filter rounded-xl mt-[380px] backdrop-blur-lg bg-opacity-80 border-b-2 border-black'>
       <h1 className='font-contax text-4xl'>Proposal Details</h1>
       <div className='flex flex-row justify-start gap-8'>
         <p className='font-contax text-2xl text-center items-center'>Proposal Name:</p>
@@ -54,7 +54,7 @@ const CreateProposal = ({signer, contractBundle }) => {
           placeholder='Enter Proposal Duration'
         />
       </div>
-      <button className="inline-block text-lg group" onClick={createAProposal}>
+      <button className="inline-block text-lg group pb-6" onClick={createAProposal}>
         <span className="relative z-10 block px-5 py-3 overflow-hidden font-contax font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
           <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
           <span className="absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-gray-900 group-hover:-rotate-180 ease"></span>
