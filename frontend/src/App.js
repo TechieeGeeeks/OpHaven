@@ -17,7 +17,7 @@ import Homepage from './Homepage';
 import Proposal from './Proposal.jsx';
 import Donate from './Donate';
 import TokenApproval from './components/TokenApproval/TokenApproval.jsx';
-import DistributeAndBatchDistribution from './components/distribution/DistributeAndBatchDistribution.jsx';
+import DistributeAndBatchDistribution from './components/distribution/distributeAndBatchDistribution.jsx';
 
 function App() {
   const [popUp, setPopUp] = useState(false);
@@ -32,10 +32,42 @@ function App() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       setProvider(provider);
       try {
+        
+        const optimismTestnetParams = {
+          chainId: '0xaa37dc', 
+          chainName: 'OP Sepolia',
+          nativeCurrency: {
+            name: 'Ethereum',
+            symbol: 'ETH', 
+            decimals: 18,
+          },
+          rpcUrls: ['https://sepolia.optimism.io/'],
+          blockExplorerUrls: ['https://sepolia-optimistic.etherscan.io/'],
+        };
+  
+        try {
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: optimismTestnetParams.chainId }], // chainId must be in hexadecimal numbers
+          });
+        } catch (switchError) {
+          if (switchError.code === 4902) {
+            try {
+              await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [optimismTestnetParams],
+              });
+            } catch (addError) {
+              console.error(addError);
+            }
+          }
+          console.error(switchError);
+        }
+  
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
         setSigner(signer);
-        const address= await signer.getAddress();
+        const address = await signer.getAddress();
         setAddress(address);
         await connectContract(signer);
       } catch (error) {
