@@ -26,8 +26,9 @@ const ProposalVoting = ({ contractBundle }) => {
   };
 
   return (
+    <>
     <div className='flex flex-col justify-evenly w-[1000px] h-[750px] items-center mb-4 bg-white backdrop-filter rounded-xl mt-4 backdrop-blur-lg bg-opacity-80 border-b-2 border-black'>
-      <div className='flex flex-col mb-4 justify-evenly w-[1000px] h-[350px] items-center mb-4 bg-white backdrop-filter rounded-xl mt-4 backdrop-blur-lg bg-opacity-80 border-b-2 border-black'>
+      
       <h1 className='font-contax text-4xl'>Vote on Existing Proposal</h1>
       
       {/* Proposal 1 */}
@@ -39,10 +40,12 @@ const ProposalVoting = ({ contractBundle }) => {
 
         
       </div>
-      </div>
+     
 
+    
+    </div>
       {/* Proposal Voting Section */}
-      <div className='flex flex-col justify-evenly w-[800px] h-[400px] bg-gray-200 rounded-[10px] items-center border-black my-4'>
+      <div className='flex flex-col justify-evenly w-[1000px] h-[750px] items-center mb-4 bg-white backdrop-filter rounded-xl mt-4 backdrop-blur-lg bg-opacity-80 border-b-2 p-4 gap-6 border-black'>
         <p className='font-contax text-2xl text-center items-center'>Vote for Proposal</p>
         <input
           type="text"
@@ -69,11 +72,11 @@ const ProposalVoting = ({ contractBundle }) => {
       </div>
 
       {/* Successful Proposals Section */}
-      <div className='flex flex-col justify-evenly w-[800px] h-[350px] bg-gray-100 rounded-[10px] items-center border-black my-4'>
+      <div className='flex flex-col justify-evenly w-[1000px] min-h-[200px] items-center mb-8 bg-white backdrop-filter rounded-xl mt-4  backdrop-blur-lg bg-opacity-80 border-b-2 border-black'>
         <p className='font-contax text-2xl text-center items-center'>Successful Proposals</p>
         {/* Display successful proposals here */}
       </div>
-    </div>
+      </>
   );
 };
 
